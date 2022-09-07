@@ -85,7 +85,7 @@ SELECT `students`.`id` AS `student_id`,
 `courses`.`name` AS `course_name`,
 `exams`.`course_id` AS `course_id`,
 COUNT(`exams`.`course_id`) AS `tot_try`,
-`exam_student`.`vote` AS `vote_max`
+MAX(`exam_student`.`vote`) AS `vote_max`
 FROM `students`
 JOIN `exam_student`
 ON `students`.`id` = `exam_student`.`student_id` 
@@ -93,5 +93,5 @@ JOIN `exams`
 ON `exams`.`id` = `exam_student`.`exam_id`
 JOIN `courses`
 ON `courses`.`id` = `exams`.`course_id`  
-GROUP BY `student_id`,`student_name`,`student_surname`,`course_name`,`course_id`,`vote_max`
+GROUP BY `student_id`,`student_name`,`student_surname`,`course_name`,`course_id`
 ORDER BY `student_id` ASC;
