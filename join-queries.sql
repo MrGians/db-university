@@ -82,9 +82,16 @@ WHERE `departments`.`name` = "Dipartimento di Matematica"
 SELECT `students`.`id` AS `student_id`,
 `students`.`name` AS `student_name`,
 `students`.`surname` AS `student_surname`,
-`exam_student`.`exam_id` AS `exam_id`,
-COUNT(`exam_student`.`exam_id` AND `exam_student`.`student_id`) AS `single_exam_try`
+`courses`.`name` AS `course_name`,
+`exams`.`course_id` AS `course_id`,
+COUNT(`exams`.`course_id`) AS `tot_try`,
+`exam_student`.`vote` AS `vote_max`
 FROM `students`
 JOIN `exam_student`
-ON `students`.`id` = `exam_student`.`student_id`  
-GROUP BY `student_id`, `student_name`, `student_surname`, `exam_id`;
+ON `students`.`id` = `exam_student`.`student_id` 
+JOIN `exams`
+ON `exams`.`id` = `exam_student`.`exam_id`
+JOIN `courses`
+ON `courses`.`id` = `exams`.`course_id`  
+GROUP BY `student_id`,`student_name`,`student_surname`,`course_name`,`course_id`,`vote_max`
+ORDER BY `student_id` ASC;
