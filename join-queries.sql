@@ -94,4 +94,4 @@ ON `exams`.`id` = `exam_student`.`exam_id`
 JOIN `courses`
 ON `courses`.`id` = `exams`.`course_id`  
 GROUP BY `student_id`,`student_name`,`student_surname`,`course_name`,`course_id`
-ORDER BY `student_id` ASC;
+HAVING `vote_max` > 17;
